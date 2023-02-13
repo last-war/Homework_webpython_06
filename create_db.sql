@@ -1,0 +1,51 @@
+DROP TABLE IF EXISTS study_groups;
+CREATE TABLE study_groups (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    gr_name VARCHAR(50) UNIQUE NOT NULL,
+);
+
+
+
+DROP TABLE IF EXISTS students;
+CREATE TABLE students (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    full_name VARCHAR(150) NOT NULL,
+    group_id INTEGER
+    FOREIGN KEY (group_id) REFERENCES study_groups (id)
+      ON DELETE SET NULL
+      ON UPDATE CASCADE
+);
+
+
+
+DROP TABLE IF EXISTS teachers;
+CREATE TABLE teachers (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    full_name VARCHAR(150) NOT NULL
+);
+
+
+DROP TABLE IF EXISTS subjects;
+CREATE TABLE subjects (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    sub_name VARCHAR(50) NOT NULL,
+    teacher_id INTEGER
+    FOREIGN KEY (teacher_id) REFERENCES teachers (id)
+      ON DELETE SET NULL
+      ON UPDATE CASCADE
+);
+
+DROP TABLE IF EXISTS journal;
+CREATE TABLE journal (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    mark INTEGER,
+    subject_id INTEGER,
+    student_id INTEGER
+    FOREIGN KEY (subject_id) REFERENCES subjects (id)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE
+    FOREIGN KEY (student_id) REFERENCES students (id)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE
+);
