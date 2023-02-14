@@ -93,9 +93,20 @@ def prepare_data(raw: dict) -> tuple:
 
     marks = []
     for _ in range(1, NUMBER_STUDENTS*20):
-        marks.append(( randint(1, 10), randint(1, NUMBER_SUBJECT), randint(1, NUMBER_STUDENTS)))
+        marks.append((randint(1, 10), randint(1, NUMBER_SUBJECT), randint(1, NUMBER_STUDENTS)))
 
     return study_groups, students, teachers, subjects, marks
+
+
+def execute_query():
+    with sqlite3.connect('course.db') as con:
+        cur = con.cursor()
+        for itr in range(1, 13):
+            with open('query_'+str(itr)+'.sql', 'r') as f:
+                sql = f.read()
+
+            cur.execute(sql)
+            print(cur.fetchall())
 
 
 if __name__ == "__main__":
@@ -103,3 +114,5 @@ if __name__ == "__main__":
     fake_db = generate_fake_data()
     normal_fake_db = prepare_data(fake_db)
     fill_db(*normal_fake_db)
+    execute_query()
+
