@@ -92,8 +92,8 @@ def prepare_data(raw: dict) -> tuple:
         subjects.append((subject, randint(1, NUMBER_TEACHERS)))
 
     marks = []
-    for mark in range(1, NUMBER_SUBJECT*NUMBER_STUDENTS*20):
-        marks.append((mark, randint(1, NUMBER_SUBJECT), randint(1, NUMBER_STUDENTS)))
+    for _ in range(1, NUMBER_SUBJECT*NUMBER_STUDENTS*20):
+        marks.append(( randint(1, 10), randint(1, NUMBER_SUBJECT), randint(1, NUMBER_STUDENTS)))
 
     return study_groups, students, teachers, subjects, marks
 
