@@ -41,7 +41,7 @@ def fill_db(study_groups, students, teachers, subjects, marks):
                                        VALUES (?, ?)"""
         cur.executemany(sql_to_subjects, subjects)
 
-        sql_to_marks = """INSERT INTO marks(mark, subject_id, student_id)
+        sql_to_marks = """INSERT INTO journal(mark, subject_id, student_id)
                                        VALUES (?, ?, ?)"""
         cur.executemany(sql_to_marks, marks)
 
@@ -99,7 +99,7 @@ def prepare_data(raw: dict) -> tuple:
 
 
 if __name__ == "__main__":
-    #create_db()
+    create_db()
     fake_db = generate_fake_data()
     normal_fake_db = prepare_data(fake_db)
-    fill_db(normal_fake_db)
+    fill_db(*normal_fake_db)
